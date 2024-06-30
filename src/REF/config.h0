@@ -1,0 +1,41 @@
+/*
+ * @Author: TZU-CHIEH,HSU
+ * @Date: 2023-08-01 20:33:38
+ * @LastEditors: TZU-CHIEH,HSU
+ * @LastEditTime: 2023-09-17 02:49:50
+ * @Description: 
+ */
+//#define ENV_DEV
+
+#define DEVICE_NAME     "Aquarium"
+
+#define WIFI_SSID       "Jack-Home"
+#define WIFI_PASSWORD   "jack0932271992"
+
+#define MQTT_HOST       "homeassistant.local"
+#define MQTT_PORT       1883
+#define MQTT_USERNAME   "mqtt"
+#define MQTT_PASSWORD   "mqtt"
+#define MQTT_ROOT_TOPIC "Aqu"
+
+#define AM2302_PIN      32
+#define DS18B20_PIN     33
+
+#define LED_W_PIN       27
+#define LED_R_PIN       25
+//#define LED_G_PIN       26
+#define LED_B_PIN       26
+
+#define FAN_EN_PIN         14
+#define FAN_PWM_PIN         13
+
+#define WATERLEVEL_CLK_PIN 4
+#define WATERLEVEL_DOUT_PIN 15
+
+#define EC_PIN  36
+
+#ifdef ENV_DEV
+#define WIFI_SSID       "Jack-Home-2"
+#define MQTT_ROOT_TOPIC "Aqu2"
+#endif
+

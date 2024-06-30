@@ -30,12 +30,14 @@
 #define BOARD_RGB_LED_1_PIN 13      // RING
 #define BOARD_RGB_LED_2_PIN 2       // MAIN
 
-#define BOARD_MUX_SEL_PIN   12
+#define BOARD_MUX1_SEL_PIN   12
+#define BOARD_MUX2_SEL_PIN   12
 
 #define BOARD_RESET_PIN     4
 
 #define BOARD_CLASSD_I2C_ADDRESS  0x45 
 
+#define __ADAFRUIT_SH1106
 
 #endif
 

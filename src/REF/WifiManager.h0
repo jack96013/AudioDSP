@@ -1,0 +1,63 @@
+/*
+ * @Author: TZU-CHIEH,HSU
+ * @Date: 2023-08-01 20:31:57
+ * @LastEditors: TZU-CHIEH,HSU
+ * @LastEditTime: 2023-08-20 01:47:52
+ * @Description: 
+ */
+#ifndef __WIFIMANAGER_H__
+#define __WIFIMANAGER_H__
+
+#include <Arduino.h>
+#include <ESPmDNS.h>
+
+#include <WiFi.h>
+#include <AsyncTCP.h>
+#include <ESPAsyncWebServer.h>
+#include <AsyncElegantOTA.h>
+#include <ArduinoOTA.h>
+#include "config.h"
+#include "AquariumManager.h"
+#include "time.h"
+
+
+
+
+class MqttManger;
+
+extern "C" {
+	#include "freertos/FreeRTOS.h"
+	#include "freertos/timers.h"
+}
+
+class WifiManager
+{
+    private:
+        TimerHandle_t wifiReconnectTimer;
+        static void WiFiEvent(WiFiEvent_t event,WifiManager* _this);
+        static void connect();
+        void initialService();
+        void initialOTA();
+        
+        AsyncWebServer otaWebServer = AsyncWebServer(80);
+
+        int reconnnect_times = 0;
+
+        const char* time_ntpServer = "pool.ntp.org";
+        const long  time_gmtOffset_sec = 28800;
+        const int   time_daylightOffset_sec = 3600;
+        
+        time_t boot_time = 0;
+
+    public:
+        WifiManager();
+        void begin();
+        void check();
+
+        time_t getBootTime();
+        
+        
+        
+};
+
+#endif

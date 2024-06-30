@@ -52,14 +52,22 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "cinttypes": "cpp",
-        "typeinfo": "cpp",
-        "cassert": "cpp",
-        "cerrno": "cpp",
-        "climits": "cpp",
-        "ios": "cpp",
-        "locale": "cpp",
-        "queue": "cpp",
-        "stack": "cpp",
-        "cstdbool": "cpp"
-    }
+        "typeinfo": "cpp"
+    },
+    "fileheader.customMade": {
+        // Author欄位是檔案的建立者 
+        "Author": "TZU-CHIEH, HSU", // 同時獲取使用者名稱與信箱
+        "Mail": "j.k96013@gmail.com",
+        "Department": "ECIE Lab, NTUT",
+        "Date": "Do not edit",
+        //"LastEditors": "git config user.name && git config user.email",
+        "LastEditTime": "Do not edit",
+        "Description": "",
+        //"custom_string_obkoro1_copyright": "Copyright (c) ${now_year} by TZU-CHIEH, HSU email: j.k96013@gmail.com, All Rights Reserved."
+    },
+    "fileheader.configObj": {
+        "wideSame": true, // 設定為true開啟
+        "wideNum": 13 // 欄位長度 默認為13
+    },
+    "files.autoSave": "afterDelay",
 }

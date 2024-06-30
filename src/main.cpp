@@ -4,32 +4,33 @@
  * @LastEditors: jack96013 j.k96013@gmail.com
  * @LastEditTime: 2024-06-27 20:10:14
  * @FilePath: \EspAudioDsp\src\main.cpp
- * @Description: 
+ * @Description:
  */
 #include <Arduino.h>
 #include "testEnv.h"
-#include "Board.h"
-#include "BluetoothAudio.h"
-#include "ClassD\ClassD.h"
 
 #include <SoftTimers.h>
 #include "SerialReceiver/SerialReceiver.h"
 
-SoftTimer testTimer; //millisecond timer
+#include "ESPAudioDSP.h"
+#include "AudioDSP/AudioDSP.h"
+
+SoftTimer testTimer; // millisecond timer
 BluetoothAudio btAudio;
-ClassD classD; //class
+ClassD classD; // class
+ScreenManager screenManager;
+ControlHandler controlHandler;
+LedController ledController;
+AudioManager audioManager;
+WifiManager wifiManager; // wifi manager
+AudioDSP audioDSP; // audio
 
 
-// put function declarations here:
-int myFunction(int, int);
-
-void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+void setup()
+{
   Serial.begin(115200);
-  
 
-  test_setup();
+  
 
   testTimer.setTimeOutTime(10);
   testTimer.reset();
@@ -38,29 +39,27 @@ void setup() {
 
   classD.init();
 
+  screenManager.init();
+  controlHandler.init();
+
+  ledController.showRing(0.2);
+  audioManager.init();
+
+  wifiManager.begin();
+
+  test_setup();
+
+  audioDSP.init();
+
+  
 }
 
-
-void loop() {
-  // put your main code here, to run repeatedly:
-  btAudio.loop();
-
+void loop()
+{
   classD.loop();
-
-  test_loop();
-  if (testTimer.hasTimedOut())
-  {
-    test_loop();
-    testTimer.reset();
-  }
-  
-
-  
-
+  controlHandler.loop();
+  screenManager.loop();
+  wifiManager.check();
+  btAudio.loop();
+  audioDSP.loop();
 }
-
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
-}
-

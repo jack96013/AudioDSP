@@ -3,6 +3,9 @@
 
 #include <Arduino.h>
 #include <Wire.h>
+#include <SoftTimers.h>
+
+
 #include "board.h"
 
 #define  CLASSD_I2S_VOLUEM
@@ -27,11 +30,15 @@ class ClassD
 
     void sendTestData();
 
+  
+
     
     private:
+    SoftTimer timer;
     ClassDSettings settings;
+    String deviceName;
     int8_t address;
-      
+
 };
 
 #endif

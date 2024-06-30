@@ -1,0 +1,29 @@
+/*
+ * @Author: TZU-CHIEH,HSU
+ * @Date: 2023-10-02 03:38:21
+ * @LastEditors: TZU-CHIEH,HSU
+ * @LastEditTime: 2023-10-02 03:39:24
+ * @Description: 
+ */
+#ifndef __SETTINGS_H__
+#define __SETTINGS_H__
+#include "Arduino.h"
+#include "AquariumManager.h"
+
+class Settings
+{
+private:
+    
+    /* data */
+public:
+    Settings(/* args */);
+    ~Settings();
+    void begin();
+    void loadSettings();
+    
+};
+
+
+
+
+#endif

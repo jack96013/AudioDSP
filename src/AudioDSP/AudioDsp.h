@@ -4,18 +4,31 @@
 #include <SigmaDsp.h>
 #include <Wire.h>
 #include "SigmaDsp_parameters.h"
+#include "SoftTimers.h"
 
-class AudioDsp
+class AudioDSP
 {
     public:
-    AudioDsp();
+    AudioDSP();
     void init();
     
     void loop();
 
+    void setVolume(float percent);
+
+    float fft_data[7];
+
     private:
     SigmaDSP dsp = SigmaDSP(Wire, DSP_I2C_ADDRESS, 48000.00F);
 
+
+    void getAuioFFT();
+    SoftTimer timer;
+
+
+    static float fixedToFloat(uint32_t fixedval);
+    
+    
 
 };
 
