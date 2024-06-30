@@ -44,16 +44,16 @@ void AudioDSP::setVolume(float percent)
 
 void AudioDSP::getAuioFFT()
 {
-    Serial.print(F("FFT value: "));
+    // Serial.print(F("FFT value: "));
      
     for (int i = 0; i < 7; i++)
     {
         int value  = dsp.readBack(MOD_7XRTA1_ALG0_ADDR, MOD_7XRTA1_ALG0_VALUES + ((uint16_t)168 * i), 3);
         fft_data[i] = 20*log10f(fixedToFloat(value)); 
-        Serial.print(fft_data[i]);
-        Serial.print(",");
+        // Serial.print(fft_data[i]);
+        // Serial.print(",");
     }
-    Serial.println();
+    // Serial.println();
     
 }
 

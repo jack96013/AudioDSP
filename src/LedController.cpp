@@ -3,11 +3,12 @@
  * @Mail         : j.k96013@gmail.com
  * @Department   : ECIE Lab, NTUT
  * @Date         : 2024-06-15 17:52:41
- * @LastEditTime : 2024-06-27 22:42:28
+ * @LastEditTime : 2024-06-30 16:49:20
  * @Description  :
  */
 
 #include "LedController.h"
+#include "ESPAudioDsp.h"
 
 LedController::LedController()
 {
@@ -17,11 +18,6 @@ LedController::LedController()
 }
 
 void LedController::init()
-{
-    
-}
-
-void LedController::loop()
 {
     strip.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
     for (int i = 0; i < strip.numPixels(); i++)
@@ -36,6 +32,19 @@ void LedController::loop()
     strip2.setPixelColor(0, strip2.Color(0, 150, 0));
     strip2.setPixelColor(1, strip2.Color(150, 0, 0));
     strip2.show(); // Turn OFF all pixels ASAP
+
+    softTimer.setTimeOutTime(100);
+    softTimer.reset();
+    
+}
+
+void LedController::loop()
+{
+    if (softTimer.hasTimedOut())
+    {
+        softTimer.reset();
+        refresh();
+    }
 }
 
 void LedController::setEnabled(bool enable)
@@ -94,4 +103,10 @@ void LedController::showRing(float percent)
     }
     strip.setBrightness(50);
     strip.show();
+}
+
+void LedController::refresh()
+{
+    
+    showRing(audioManager.getVolume() / 100.0);
 }

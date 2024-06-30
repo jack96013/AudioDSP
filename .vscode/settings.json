@@ -52,7 +52,8 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "cinttypes": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "list": "cpp"
     },
     "fileheader.customMade": {
         // Author欄位是檔案的建立者 

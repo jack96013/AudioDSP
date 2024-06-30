@@ -10,12 +10,6 @@
 
 
 
-const uint16_t PixelCount = 24; // this example assumes 4 pixels, making it smaller will cause a failure
-const uint8_t PixelPin = 2;     // make sure to set this to the correct pin, ignored for Esp8266
-
-#define colorSaturation 128
-
-
 
 
 void i2c_scanner();

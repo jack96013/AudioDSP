@@ -7,7 +7,7 @@
  * @Description  : 
  */
 
-#define DEVICE_NAME     "ESPAudioDsp"
+#define DEVICE_NAME     "Audio"
 
 #define WIFI_SSID       "DESKTOP-8CFI3AT 9305"
 #define WIFI_PASSWORD   "33333333"

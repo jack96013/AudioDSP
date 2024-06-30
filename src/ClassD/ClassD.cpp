@@ -4,7 +4,7 @@
  * @LastEditors: jack96013 j.k96013@gmail.com
  * @LastEditTime: 2024-06-27 20:25:59
  * @FilePath: \EspAudioDsp\src\ClassD\ClassD.cpp
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @Description: Class D library
  */
 
 #include "ClassD.h"
@@ -34,7 +34,7 @@ void ClassD::loop()
         timer.reset();
         sendTestData();
     }
-}   
+}
 
 
 void ClassD::setLeftVolume(float percentage)
@@ -69,18 +69,19 @@ void ClassD::setSubwooferVolume(float percentage)
 }
 
 void ClassD::sendTestData()
+{    
+    uint8_t value[] = {(uint8_t)(0xAA),(uint8_t)audioManager.getVolume()};
+    uint16_t val = (uint16_t)value[0] << 8 | (uint16_t)value[1];
+    // Serial.print(F("TEST DATA :"));
+    // Serial.println(val);
+    sendData(CLASSD_SETTINGS_TEST_ADDRESS, val);
+}
+
+void ClassD::sendData(uint8_t data_address, uint16_t data)
 {
-    uint8_t value_address = 0;
-
-    uint8_t value = audioManager.getVolume();
-    // value ++;
-    
     Wire.beginTransmission(this->address);
-    Wire.write((uint8_t*)&value_address, sizeof(value_address));
-    Wire.write((uint8_t*)&value, sizeof(value));
+    Wire.write(data_address);
+    Wire.write(highByte(data));
+    Wire.write(lowByte(data));
     Wire.endTransmission();
-
-    // Wire.beginTransmission(this->address);
-    // Wire.write((uint8_t*)&value, sizeof(value));
-    // Wire.endTransmission();
 }

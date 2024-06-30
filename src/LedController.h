@@ -11,6 +11,7 @@
 #define __LEDCONTROLLER_H__
 
 #include "Arduino.h"
+#include "SoftTimers.h"
 #include <Adafruit_NeoPixel.h>
 #include "board.h"
 
@@ -28,6 +29,8 @@ public:
 
     void showRing(float perenct);
 
+    void refresh();
+
 private:
 
     Adafruit_NeoPixel strip = Adafruit_NeoPixel(24, BOARD_RGB_LED_1_PIN, NEO_GRB + NEO_KHZ800);
@@ -36,6 +39,8 @@ private:
     bool enable = true;
 
     int mapLedIndex(int i);
+
+    SoftTimer softTimer;
 
 };
 

@@ -21,16 +21,19 @@ void AudioManager::init()
     
 
     setSource(AudioSource::BT);
+
+    // TODO: FPGA Data sync
 }
 
 void AudioManager::loop()
 {
+
 }
 
 void AudioManager::setSource(AudioSource source)
 {
-    this->source = source;
-    switch (source)
+    // this->source = source;
+    switch (getSource())
     {
     case AudioSource::XLR1:
         digitalWrite(BOARD_MUX1_SEL_PIN, LOW);
@@ -52,7 +55,16 @@ void AudioManager::setSource(AudioSource source)
 }
 AudioSource AudioManager::getSource()
 {
-    return source;
+    return sources[sourceSelectIndex];
+}
+
+void AudioManager::switchSource()
+{
+    sourceSelectIndex ++;
+    if (sourceSelectIndex >= sourceLength)
+    {
+        sourceSelectIndex = 0;
+    }
 }
 
 int AudioManager::getVolume()
@@ -68,20 +80,43 @@ void AudioManager::setVolume(int vol)
     volume = vol;
 
     audioDSP.setVolume(vol/100.0f);
+    
 }
 
 void AudioManager::mute()
 {
+    switch (getSource())
+    {
+        case AudioSource::BT:
+            break;
+
+    }
 }
 void AudioManager::play()
 {
+
 }
 void AudioManager::pause()
 {
+    
 }
 void AudioManager::skip()
 {
+
 }
 void AudioManager::last()
 {
+
+}
+
+void AudioManager::setFpgaEqEnable(bool bypass)
+{
+    fpgaEqEnable = bypass;
+    // audioDSP.setFpgaEqBypass(bypass);
+    // classD.setFpgaEqModeEnable
+}
+
+bool AudioManager::isFpgaEqEnable()
+{
+    return fpgaEqEnable;
 }

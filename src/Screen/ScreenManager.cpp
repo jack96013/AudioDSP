@@ -153,6 +153,10 @@ void ScreenManager::handle()
                         if (audioDSP.fft_data[i] <= -30.0f) audioDSP.fft_data[i] = -30.0f;
 
                         fftData[i] = ((audioDSP.fft_data[i] - (-30.0f)) / 20.0f) * (SCREEN_HEIGHT)*2;
+                        if (fftData[i] >= SCREEN_HEIGHT * 0.5)
+                        {
+                            fftData[i] = SCREEN_HEIGHT * 0.5;
+                        }
                     }
                     
                     

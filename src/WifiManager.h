@@ -3,7 +3,7 @@
  * @Mail         : j.k96013@gmail.com
  * @Department   : ECIE Lab, NTUT
  * @Date         : 2024-06-27 14:41:35
- * @LastEditTime : 2024-06-30 15:01:48
+ * @LastEditTime : 2024-06-30 17:29:32
  * @Description  : 
  */
 #ifndef __WIFIMANAGER_H__
@@ -40,7 +40,7 @@ class WifiManager
         static void onOTAProgress(size_t current, size_t final);
         static void onOTAEnd(bool success);
         
-
+        String deviceName = "";
 
 
     public:

@@ -3,7 +3,15 @@
  * @Mail         : j.k96013@gmail.com
  * @Department   : ECIE Lab, NTUT
  * @Date         : 2024-06-28 13:40:51
- * @LastEditTime : 2024-06-29 10:37:33
+ * @LastEditTime : 2024-06-30 15:44:14
+ * @Description  : 
+ */
+/*
+ * @Author       : TZU-CHIEH, HSU
+ * @Mail         : j.k96013@gmail.com
+ * @Department   : ECIE Lab, NTUT
+ * @Date         : 2024-06-28 13:40:51
+ * @LastEditTime : 2024-06-30 15:22:39
  * @Description  : 
  */
 #ifndef __AUDIOMANAGER_H__
@@ -30,7 +38,7 @@ class AudioManager
     // AUDIO SOURCE
     void setSource(AudioSource source);
     AudioSource getSource();
-
+    void switchSource();
 
     // Volume Adjustment 
     int getVolume();
@@ -41,6 +49,7 @@ class AudioManager
 
     int getVolumeR();
     void setVolumeR(int vol);
+    
 
     void saveSettings();
 
@@ -53,14 +62,29 @@ class AudioManager
     void last();
 
 
-    private:
-    AudioSource source = AudioSource::XLR1; // 音源
-
-    int volume;     // 音量
-    int l_volume;   // 左音量
-    int r_volume;   // 右音量
+    // FPGA
+    void setFpgaEqEnable(bool bypass);
+    bool isFpgaEqEnable();
     
 
+    private:
+
+    int volume = 100;     // 音量
+    int l_volume = 100;   // 左音量
+    int r_volume = 100;   // 右音量
+    
+    bool fpgaEqEnable = false; // FPGA 混音模式
+
+    int sourceSelectIndex = 0;
+
+    AudioSource sources[4] = {
+        AudioSource::XLR1, //
+        AudioSource::XLR2, //
+        AudioSource::BT,   //
+        AudioSource::USB,  //
+    };
+
+    size_t sourceLength = sizeof(sources) / sizeof(sources[0]);
     
 };
 

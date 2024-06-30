@@ -83,12 +83,31 @@ void ControlHandler::readEncoder()
             // case ClickEncoder::Clicked:
             // digitalWrite(BOARD_MUX_SEL_PIN, !digitalRead(BOARD_MUX_SEL_PIN));
             // Serial.println("MUX");
-            break;
-            VERBOSECASE(ClickEncoder::Pressed);
-            VERBOSECASE(ClickEncoder::Held)
-            VERBOSECASE(ClickEncoder::Released)
-            VERBOSECASE(ClickEncoder::Clicked)
-            VERBOSECASE(ClickEncoder::DoubleClicked)
+            case ClickEncoder::Pressed:
+            {
+                
+                break;   
+            }
+            case ClickEncoder::Held:
+            {
+
+                break;   
+            }
+            case ClickEncoder::Released:
+            {
+
+                break;   
+            }
+            case ClickEncoder::Clicked:
+            {
+                audioManager.switchSource();
+                break;   
+            }
+            case ClickEncoder::DoubleClicked:
+            {
+
+                break;   
+            }
         }
     }
 }
@@ -111,10 +130,31 @@ void ControlHandler::readButton()
 
     switch (status)
     {
-        VERBOSECASE(ClickEncoder::Pressed);
-        VERBOSECASE(ClickEncoder::Held)
-        VERBOSECASE(ClickEncoder::Released)
-        VERBOSECASE(ClickEncoder::Clicked)
-        VERBOSECASE(ClickEncoder::DoubleClicked)
+        break;
+            case ClickEncoder::Pressed:
+            {
+                
+                break;   
+            }
+            case ClickEncoder::Held:
+            {
+                
+                break;   
+            }
+            case ClickEncoder::Released:
+            {
+                
+                break;   
+            }
+            case ClickEncoder::Clicked:
+            {
+                
+                break;   
+            }
+            case ClickEncoder::DoubleClicked:
+            {
+                
+                break;   
+            }
     }
 }

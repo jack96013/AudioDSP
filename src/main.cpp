@@ -1,15 +1,17 @@
 /*
- * @Author: jack96013 j.k96013@gmail.com
- * @Date: 2024-06-15 17:17:20
- * @LastEditors: jack96013 j.k96013@gmail.com
- * @LastEditTime: 2024-06-27 20:10:14
- * @FilePath: \EspAudioDsp\src\main.cpp
- * @Description:
+ * @Author       : TZU-CHIEH, HSU
+ * @Mail         : j.k96013@gmail.com
+ * @Department   : ECIE Lab, NTUT
+ * @Date         : 2024-06-15 17:17:20
+ * @LastEditTime : 2024-06-30 17:06:07
+ * @Description  : 
  */
+
 #include <Arduino.h>
 #include "testEnv.h"
 
 #include <SoftTimers.h>
+
 #include "SerialReceiver/SerialReceiver.h"
 
 #include "ESPAudioDSP.h"
@@ -36,17 +38,13 @@ void setup()
   testTimer.reset();
 
   btAudio.init();
-
   classD.init();
-
   screenManager.init();
+  ledController.init();
   controlHandler.init();
-
-  ledController.showRing(0.2);
   audioManager.init();
-
   wifiManager.begin();
-
+  
   test_setup();
 
   audioDSP.init();
@@ -61,5 +59,6 @@ void loop()
   screenManager.loop();
   wifiManager.check();
   btAudio.loop();
+  ledController.loop();
   audioDSP.loop();
 }
