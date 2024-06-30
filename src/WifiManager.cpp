@@ -32,7 +32,7 @@ void WifiManager::begin()
 
 void WifiManager::check()
 {
-    // ElegantOTA.loop();
+    ElegantOTA.loop();
 }
 
 time_t WifiManager::getBootTime()
@@ -59,19 +59,19 @@ void WifiManager::initialService()
 
 void WifiManager::initialOTA()
 {
-    // otaWebServer.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
-    //     request->send(200, "text/plain", "Hi! This is ElegantOTA AsyncDemo.");
-    // });
+    otaWebServer.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
+        request->send(200, "text/plain", "Hi! This is ElegantOTA AsyncDemo.");
+    });
 
-    // ElegantOTA.begin(&otaWebServer);    // Start ElegantOTA
-    // ElegantOTA.setAutoReboot(true);
-    // // ElegantOTA callbacks
-    // ElegantOTA.onStart(onOTAStart);
-    // ElegantOTA.onProgress(onOTAProgress);
-    // ElegantOTA.onEnd(onOTAEnd);
+    ElegantOTA.begin(&otaWebServer);    // Start ElegantOTA
+    ElegantOTA.setAutoReboot(true);
+    // ElegantOTA callbacks
+    ElegantOTA.onStart(onOTAStart);
+    ElegantOTA.onProgress(onOTAProgress);
+    ElegantOTA.onEnd(onOTAEnd);
 
-    // otaWebServer.begin();
-    // Serial.println("HTTP server started");
+    otaWebServer.begin();
+    Serial.println("HTTP server started");
 }
 
 void WifiManager::WiFiEvent(WiFiEvent_t event, WifiManager *_this)

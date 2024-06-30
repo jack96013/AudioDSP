@@ -3,7 +3,7 @@
  * @Mail         : j.k96013@gmail.com
  * @Department   : ECIE Lab, NTUT
  * @Date         : 2024-06-27 14:41:35
- * @LastEditTime : 2024-06-30 13:52:52
+ * @LastEditTime : 2024-06-30 15:01:48
  * @Description  : 
  */
 #ifndef __WIFIMANAGER_H__
@@ -13,7 +13,7 @@
 #include <ESPmDNS.h>
 #include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
-// #include <ElegantOTA.h>
+#include <ElegantOTA.h>
 #include "config.h"
 
 class WifiManager
@@ -26,7 +26,7 @@ class WifiManager
         void initialService();
         void initialOTA();
         
-        // AsyncWebServer otaWebServer = AsyncWebServer(80);
+        AsyncWebServer otaWebServer = AsyncWebServer(80);
 
         int reconnnect_times = 0;
 
