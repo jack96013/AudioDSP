@@ -6,6 +6,20 @@
 #include <ATConnection.hpp>
 #include "config.h"
 #include "SerialReceiver/SerialReceiver.h"
+
+
+enum class BluetoothAudioPlayState
+{
+    Stopped,
+	Playing,
+	Paused,
+	Fast_Forwarding,
+	Fast_Rewinding,
+};
+
+
+
+
 class BluetoothAudio
 {
 public:
@@ -13,6 +27,10 @@ public:
     void init();
 
     void loop();
+
+    BluetoothAudioPlayState getPlayState();
+    void setPlayState(BluetoothAudioPlayState state);
+
 
     
 
@@ -22,8 +40,16 @@ private:
     
     void _run();
     void serial_relay();
-    void parseCommand();
+    void parseCommand(String &response);
 
+    static void onReceive(void *arg, String &payload);
+
+    BluetoothAudioPlayState playState;
+    String trackTitle = "";
+    String trackArtist = "";
+    String trackAblum = "";
+    time_t trackTotalTime = 0;    
+    time_t trackElapsedTime = 0;    
     
 };
 
