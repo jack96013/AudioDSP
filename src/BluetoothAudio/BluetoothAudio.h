@@ -18,8 +18,6 @@ enum class BluetoothAudioPlayState
 };
 
 
-
-
 class BluetoothAudio
 {
 public:

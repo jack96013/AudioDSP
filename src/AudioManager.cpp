@@ -36,18 +36,20 @@ void AudioManager::setSource(AudioSource source)
     switch (getSource())
     {
     case AudioSource::XLR1:
-        digitalWrite(BOARD_MUX1_SEL_PIN, LOW);
-        digitalWrite(BOARD_MUX1_SEL_PIN, LOW);
+        setFpgaEqEnable(true);
         break;
     case AudioSource::XLR2:
+        setFpgaEqEnable(false);
         digitalWrite(BOARD_MUX1_SEL_PIN, HIGH);
         digitalWrite(BOARD_MUX1_SEL_PIN, HIGH);
         break;
     case AudioSource::BT:
+        setFpgaEqEnable(false);
         digitalWrite(BOARD_MUX1_SEL_PIN, LOW);
         digitalWrite(BOARD_MUX1_SEL_PIN, LOW);
         break;
     case AudioSource::USB:
+        setFpgaEqEnable(false);
         digitalWrite(BOARD_MUX1_SEL_PIN, HIGH);
         digitalWrite(BOARD_MUX1_SEL_PIN, HIGH);
         break;
@@ -65,6 +67,7 @@ void AudioManager::switchSource()
     {
         sourceSelectIndex = 0;
     }
+    setSource(sources[sourceSelectIndex]);
 }
 
 int AudioManager::getVolume()
@@ -79,7 +82,17 @@ void AudioManager::setVolume(int vol)
 
     volume = vol;
 
-    audioDSP.setVolume(vol/100.0f);
+    if (isFpgaEqEnable())
+    {
+        classD.setLeftVolume(volume / 100.0f);
+        classD.setRightVolume(volume / 100.0f);
+        classD.setSubwooferVolume(volume / 100.0f);
+    }
+    else
+    {
+        audioDSP.setVolume(vol/100.0f);
+    }
+    
     
 }
 

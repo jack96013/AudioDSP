@@ -42,9 +42,7 @@ void ClassD::setLeftVolume(float percentage)
     int16_t volume =  percentage * 4095;
     settings.l_volume =  volume;
 
-    Wire.beginTransmission(this->address);
-    Wire.write((uint8_t*)&volume, sizeof(volume));
-    Wire.endTransmission();
+    sendData(CLASSD_SETTINGS_L_VOLUME_ADDRESS, volume);
     
 }
 
@@ -53,9 +51,8 @@ void ClassD::setRightVolume(float percentage)
     int16_t volume =  percentage * 4095;
     settings.r_volume =  volume;
 
-    Wire.beginTransmission(this->address);
-    Wire.write((uint8_t*)&volume, sizeof(volume));
-    Wire.endTransmission();
+    sendData(CLASSD_SETTINGS_R_VOLUME_ADDRESS, volume);
+    
 }
 
 void ClassD::setSubwooferVolume(float percentage)
@@ -63,9 +60,7 @@ void ClassD::setSubwooferVolume(float percentage)
     int16_t volume =  percentage * 4095;
     settings.sub_volume =  volume;
 
-    Wire.beginTransmission(this->address);
-    Wire.write((uint8_t*)&volume, sizeof(volume));
-    Wire.endTransmission();
+    sendData(CLASSD_SETTINGS_SUB_VOLUME_ADDRESS, volume);
 }
 
 void ClassD::sendTestData()
