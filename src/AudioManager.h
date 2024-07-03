@@ -3,7 +3,7 @@
  * @Mail         : j.k96013@gmail.com
  * @Department   : ECIE Lab, NTUT
  * @Date         : 2024-06-28 13:40:51
- * @LastEditTime : 2024-06-30 15:44:14
+ * @LastEditTime : 2024-07-01 17:13:15
  * @Description  : 
  */
 /*
@@ -43,6 +43,8 @@ class AudioManager
     // Volume Adjustment 
     int getVolume();
     void setVolume(int vol);
+
+    float getLevel();
 
     int getVolumeL();
     void setVolumeL(int vol);

@@ -3,7 +3,7 @@
  * @Mail         : j.k96013@gmail.com
  * @Department   : ECIE Lab, NTUT
  * @Date         : 2024-06-27 16:07:52
- * @LastEditTime : 2024-07-01 00:01:35
+ * @LastEditTime : 2024-07-01 14:16:44
  * @Description  : Bluetooth auido
  */
 
@@ -44,24 +44,63 @@ void BluetoothAudio::init()
 	// 	})
 	// 	// ->freeOnFinish();
 
+	Serial2.println("AT+TRACKINFO");
+	Serial2.println("AT+TRACKSTAT");
 	
+	
+	
+
+	runTimer.setTimeOutTime(1000);
 }
 
 void BluetoothAudio::loop()
 {
     // at.communicate();
-    // serial_relay();
+    serial_relay();
 	receiver.run();
 	if (runTimer.hasTimedOut())
 	{
 		runTimer.reset();
 		_run();
 	}
+
+
+}
+
+String BluetoothAudio::getTrackTitle()
+{
+    return trackTitle;
+}
+
+String BluetoothAudio::getTrackArtist()
+{
+    return trackArtist;
+}
+
+String BluetoothAudio::getTrackAblum()
+{
+    return trackAblum;
+}
+
+int BluetoothAudio::getTrackTotalTime()
+{
+    return trackTotalTime;
+}
+
+int BluetoothAudio::getTrackElapsedTime()
+{
+    return trackElapsedTime;
+}
+
+float BluetoothAudio::getTrackProgress()
+{
+    return (float)trackElapsedTime / (float)trackTotalTime;
 }
 
 void BluetoothAudio::_run()
 {
-    
+    Serial2.println("AT+TRACKINFO");
+	Serial2.println("AT+TRACKSTAT");
 }
 
 void BluetoothAudio::serial_relay()
@@ -75,12 +114,6 @@ void BluetoothAudio::serial_relay()
     Serial2.print(val);
   }
 
-  // 若收到藍牙模組的資料，則送到「序列埠監控視窗」
-  if (Serial2.available())
-  {
-    val = Serial2.read();
-    Serial.print(val);
-  }
 }
 
 void BluetoothAudio::parseCommand(String &response)
@@ -180,6 +213,8 @@ void BluetoothAudio::parseCommand(String &response)
 void BluetoothAudio::onReceive(void *arg, String &payload)
 {
 	BluetoothAudio *_this = (BluetoothAudio *)arg;
+	Serial.print("RECV >> ");
+	Serial.println(payload);
 	_this->parseCommand(payload);
 
 }

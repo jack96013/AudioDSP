@@ -7,190 +7,219 @@ ScreenManager::ScreenManager()
 
 void ScreenManager::init()
 {
-    if (!display.begin(SSD1306_SWITCHCAPVCC))
-    {
-        Serial.println(F("SSD1306 allocation failed"));
-        for (;;)
-            ;
-    }
+    display.begin();
     showStartUpScreen();
 
     refreshTimer.setTimeOutTime(100);
     refreshTimer.reset();
-    
-
 }
 
 void ScreenManager::loop()
 {
-    handle(); 
-
+    handle();
 }
-
 
 void ScreenManager::handle()
 {
     switch (layout)
     {
-        case ScreenManagerLayout::IDLE:
+    case ScreenManagerLayout::IDLE:
+    {
+        display.clearBuffer();
+        layout = ScreenManagerLayout::STARTUP;
+        break;
+    }
+    case ScreenManagerLayout::STARTUP:
+    {
+        if (!isInitialized())
         {
-            display.clearDisplay();
-            layout = ScreenManagerLayout::STARTUP;
-            
-            break;
+            display.clearBuffer();
+            display.setDrawColor(1);
+            display.setFont(u8g2_font_ncenB14_tr);
+            display.drawStr(60, 25, "ECIE");
+            display.drawXBM(5, 15, 40, 25, resource_ecie_logo);
+            display.setFont(u8g2_font_ncenB08_tr);
+            display.drawStr(60, 42, "IFEEC 2024");
+            display.sendBuffer();
+
+            finishInitialization();
+
+            refreshTimer.setTimeOutTime(5000);
+            refreshTimer.reset();
         }
-        case ScreenManagerLayout::STARTUP:
+        else
         {
-            if (!isInitialized())
+            if (refreshTimer.hasTimedOut())
             {
-                display.clearDisplay();
-                display.setTextColor(WHITE);
-                display.setTextSize(2);
-                display.setCursor(60, 15);
-                display.println("ECIE");
-                display.drawBitmap(5, 15, resource_ecie_logo, 40, 25, 1);
-                display.setCursor(60, 32);
-                display.setTextSize(1);
-                display.println("IFEEC 2024");
-                display.display();
-
-                finishInitialization(); // Finish
-
-                refreshTimer.setTimeOutTime(5000);
-                refreshTimer.reset();
+                switchLayout(ScreenManagerLayout::MAIN_MENU);
             }
-            else
-            {
-                if (refreshTimer.hasTimedOut())
-                {
-                    switchLayout(ScreenManagerLayout::MAIN_MENU);
-                }
-            }
-            
-            break;
         }
-        case ScreenManagerLayout::LOADING:
+        break;
+    }
+    case ScreenManagerLayout::LOADING:
+    {
+        break;
+    }
+    case ScreenManagerLayout::MAIN_MENU:
+    {
+        if (!isInitialized())
         {
-            
+            refreshTimer.setTimeOutTime(100);
+            refreshTimer.reset();
+            finishInitialization();
         }
-        case ScreenManagerLayout::MAIN_MENU:
+        else
         {
-            if (!isInitialized())
+            if (!refreshTimer.hasTimedOut())
+                return;
+            refreshTimer.reset();
+
+            display.clearBuffer();
+            display.setDrawColor(1);
+            // display.setFont(u8g2_font_ncenB08_tr);
+            // display.drawStr(100, 12, "VOL");
+            display.setFont(u8g2_font_ncenB14_tr);
+            int volume = audioManager.getVolume();
+            display.setCursor(90, 14);
+            display.print(volume);
+
+            display.setFont(u8g2_font_ncenB14_tr);
+            display.setCursor(40, 14);
+            display.print(String(lowByte(classD.receiveBuffer)));
+
+            if (audioManager.getSource() == AudioSource::XLR1)
             {
-                refreshTimer.setTimeOutTime(100);
-                refreshTimer.reset();
-                finishInitialization();
+                int start_x = 8;
+                int start_y = 12;
+                display.setColorIndex(1);
+                display.drawDisc(start_x + 10, start_y + 10, 10, U8G2_DRAW_ALL);
+
+                display.setColorIndex(0);
+                display.drawDisc(start_x + 10, start_y + 10, 8);
+                display.setColorIndex(1);
+                display.drawBox(start_x + 5, start_y + 2, 11, 3);
+                display.drawDisc(start_x + 6, start_y + 10, 1);
+                display.drawDisc(start_x + 14, start_y + 10, 1);
+                display.drawDisc(start_x + 10, start_y + 15, 1);
+                display.setColorIndex(1);
+                display.setFont(u8g2_font_ncenB14_tr);
+                display.drawStr(40, 30, "XLR");
             }
-            else
+            else if (audioManager.getSource() == AudioSource::BT)
             {
-                if (!refreshTimer.hasTimedOut())
-                    return;
-                refreshTimer.reset();
+                // display.drawXBM(5, 8, 24, 24, resource_bluetooth);
+                // display.setFont(u8g2_font_ncenB14_tr);
+                // display.drawStr(40, 30, "BT");
+                display.setFont(u8g2_font_open_iconic_embedded_2x_t); // 選擇圖示字體
+                display.drawGlyph(5, 16, 74);                         // 繪製藍牙圖示 (參考字體中的圖示碼)
 
-                display.clearDisplay();
-                display.setTextColor(WHITE);
-                display.setTextSize(1);
-                // 音量
-                display.setCursor(100, 5);
-                display.println("VOL");
-                display.setTextSize(2);
-                display.setCursor(90, 15);
-                int volume = audioManager.getVolume();
-                
-                display.println(String(volume));
-                
+                // 滾動文字
+                static int offset = 0;
+                static int firstTimeCount = 0;
+                int firstTimeCountMax = 20;
 
-                if (audioManager.getSource() == AudioSource::XLR1)
+                display.setFont(u8g2_font_unifont_t_chinese1); // 設置字體
+                const char *message = btAudio.getTrackTitle().c_str();
+                int textWidth = display.getUTF8Width(message);
+                int displayWidth = 100;
+                int tempWidth = 0;
+                int visibleChars = 0;
+                while (tempWidth < displayWidth && message[visibleChars] != '\0')
                 {
-                    int start_x = 8;
-                    int start_y = 8;
-                    display.fillCircle(start_x+10, start_y+10, 10, 1);
-                    display.fillCircle(start_x+10, start_y+10, 8, 0);
-                    display.fillRect(start_x+5, start_y+2, 11, 3, 1);
-                    display.drawCircle(start_x+6, start_y+9, 2, 1);
-                    display.drawCircle(start_x+14, start_y+9, 2, 1);
-                    display.drawCircle(start_x+10, start_y+15, 2, 1);
-                    display.setCursor(40, 13);
-                    display.setTextSize(2);
-                    display.println("XLR");
-                }
-                else if (audioManager.getSource() == AudioSource::BT)
-                {
-                    display.drawBitmap(5, 8, resource_bluetooth, 24, 24, 1);
-                    display.setCursor(40, 13);
-                    display.setTextSize(2);
-                    display.println("BT");
-                }
-                    
-
-                // int size = 64;
-                // // 生成隨機的 FFT 數據
-                // uint8_t fftData[size];
-                // for (int i = 0; i < size; i++) {
-                //     fftData[i] = random(0, SCREEN_HEIGHT * 0.5);
-                // }                  
-
-                // int barWidth = SCREEN_WIDTH / size; // 計算每個條的寬度
-
-                // for (int i = 0; i < size; i++) {
-                //     display.fillRect(i * barWidth, SCREEN_HEIGHT - fftData[i], barWidth, fftData[i], SSD1306_WHITE);
-                // }
-                
-                // display.display();
-                               
-                // 生成隨機的 FFT 數據
-                int size = 7;
-                uint8_t fftData[size];
-                for (int i = 0; i < size; i++) {
-
-                    if (audioDSP.fft_data[i] == INFINITY)
+                    tempWidth += display.getStrWidth(&message[visibleChars]);
+                    if (tempWidth <= displayWidth)
                     {
-                        fftData[i] = 0;
+                        visibleChars++;
                     }
-                    else
-                    {
-                        if (audioDSP.fft_data[i] >= -10.0f) audioDSP.fft_data[i] = -10.0f;
-                        if (audioDSP.fft_data[i] <= -30.0f) audioDSP.fft_data[i] = -30.0f;
-
-                        fftData[i] = ((audioDSP.fft_data[i] - (-30.0f)) / 20.0f) * (SCREEN_HEIGHT)*2;
-                        if (fftData[i] >= SCREEN_HEIGHT * 0.5)
-                        {
-                            fftData[i] = SCREEN_HEIGHT * 0.5;
-                        }
-                    }
-                    
-                    
-                }                  
-
-                int barWidth = SCREEN_WIDTH / size; // 計算每個條的寬度
-
-                for (int i = 0; i < size; i++) {
-                    display.fillRect(i * barWidth+2, SCREEN_HEIGHT - fftData[i], barWidth-2, fftData[i], SSD1306_WHITE);
                 }
-                
-                display.display();
-            }
-            
-            break;
-        }
-        case ScreenManagerLayout::SETTINGS:
-        {
+                if (offset + visibleChars < strlen(message))
+                {
+                    display.drawStr(0, 30, &message[offset]);
+                }
+                else
+                {
+                    // 當超過字符串尾部時，重新開始顯示
+                    int firstPart = strlen(message) - offset;
+                    display.drawStr(0, 30, &message[offset]);
+                    display.drawStr(display.getStrWidth(&message[offset]), 30, message);
+                }
 
-            break;
-        }   
+                if (offset == 0)
+                {
+                    firstTimeCount++;
+                    if (firstTimeCount == firstTimeCountMax)
+                    {
+                        firstTimeCount = 0;
+                        offset = 1;
+                    }
+                }
+                else
+                    offset += 1; // 增加偏移量以實現滾動效果
+
+                // 當 offset 超過字符串長度時重置為 0
+                if (offset >= strlen(message))
+                {
+                    offset = 0;
+                }
+
+                display.setColorIndex(1); // 设置为白色
+                Serial.print("OFFSET = ");
+                Serial.print(offset);
+
+                int padding = 10;
+                int width = (float)(SCREEN_WIDTH - 2 * padding) * btAudio.getTrackProgress();
+
+                display.drawBox(0 + padding, SCREEN_HEIGHT * 0.5 + 2, width, 2); // 绘制进度条
+            }
+
+            // 生成隨機的 FFT 數據
+            int size = 7;
+            uint8_t fftData[size];
+            for (int i = 0; i < size; i++)
+            {
+                if (audioDSP.fft_data[i] == INFINITY)
+                {
+                    fftData[i] = 0;
+                }
+                else
+                {
+                    if (audioDSP.fft_data[i] >= -10.0f)
+                        audioDSP.fft_data[i] = -10.0f;
+                    if (audioDSP.fft_data[i] <= -30.0f)
+                        audioDSP.fft_data[i] = -30.0f;
+
+                    fftData[i] = ((audioDSP.fft_data[i] - (-30.0f)) / 20.0f) * (SCREEN_HEIGHT) * 2;
+                    if (fftData[i] >= SCREEN_HEIGHT * 0.5)
+                    {
+                        fftData[i] = SCREEN_HEIGHT * 0.5;
+                    }
+                }
+            }
+
+            int barWidth = SCREEN_WIDTH / size; // 計算每個條的寬度
+
+            for (int i = 0; i < size; i++)
+            {
+                display.drawBox(i * barWidth + 2, SCREEN_HEIGHT - fftData[i], barWidth - 2, fftData[i]);
+            }
+
+            display.sendBuffer();
+        }
+        break;
+    }
+    case ScreenManagerLayout::SETTINGS:
+    {
+        break;
+    }
     }
 }
 
-
-
 void ScreenManager::showStartUpScreen()
 {
-    display.clearDisplay();
-    display.setTextSize(2);
-    display.setTextColor(SSD1306_WHITE);
-    display.setCursor(5, 28);
-    display.println("ECIE LAB");
-    display.display();
+    display.clearBuffer();
+    display.setFont(u8g2_font_ncenB14_tr);
+    display.drawStr(5, 28, "ECIE LAB");
+    display.sendBuffer();
 }
 
 bool ScreenManager::isInitialized()
@@ -210,4 +239,3 @@ void ScreenManager::switchLayout(ScreenManagerLayout layout)
     this->layout = layout;
     this->initialized = false;
 }
-

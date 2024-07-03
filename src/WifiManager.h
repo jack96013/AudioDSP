@@ -14,6 +14,7 @@
 #include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 #include <ElegantOTA.h>
+#include "SPIFFS.h"
 #include "config.h"
 
 class WifiManager
@@ -26,7 +27,7 @@ class WifiManager
         void initialService();
         void initialOTA();
         
-        AsyncWebServer otaWebServer = AsyncWebServer(80);
+        AsyncWebServer webServer = AsyncWebServer(80);
 
         int reconnnect_times = 0;
 

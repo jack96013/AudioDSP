@@ -3,7 +3,7 @@
  * @Mail         : j.k96013@gmail.com
  * @Department   : ECIE Lab, NTUT
  * @Date         : 2024-06-27 19:20:50
- * @LastEditTime : 2024-06-30 19:22:34
+ * @LastEditTime : 2024-07-02 15:55:47
  * @Description  : FPGA class D control.
  */
 #ifndef __CLASSD_H__
@@ -41,6 +41,10 @@ class ClassD
     void sendTestData();
     void sendData(uint8_t data_address, uint16_t data);
 
+    void receiveData();
+
+    uint16_t receiveBuffer;
+    
     private:
     SoftTimer timer;
     ClassDSettings settings;

@@ -18,7 +18,6 @@ void AudioManager::init()
     digitalWrite(BOARD_ASRC_MODE0_PIN, LOW);
     digitalWrite(BOARD_ASRC_MODE1_PIN, HIGH);
     digitalWrite(BOARD_ASRC_MODE2_PIN, LOW);
-    
 
     setSource(AudioSource::BT);
 
@@ -27,7 +26,6 @@ void AudioManager::init()
 
 void AudioManager::loop()
 {
-
 }
 
 void AudioManager::setSource(AudioSource source)
@@ -37,6 +35,8 @@ void AudioManager::setSource(AudioSource source)
     {
     case AudioSource::XLR1:
         setFpgaEqEnable(true);
+        digitalWrite(BOARD_MUX1_SEL_PIN, LOW);
+        digitalWrite(BOARD_MUX1_SEL_PIN, LOW);
         break;
     case AudioSource::XLR2:
         setFpgaEqEnable(false);
@@ -62,7 +62,7 @@ AudioSource AudioManager::getSource()
 
 void AudioManager::switchSource()
 {
-    sourceSelectIndex ++;
+    sourceSelectIndex++;
     if (sourceSelectIndex >= sourceLength)
     {
         sourceSelectIndex = 0;
@@ -77,8 +77,10 @@ int AudioManager::getVolume()
 
 void AudioManager::setVolume(int vol)
 {
-    if (vol <= 0) vol = 0;
-    else if (vol > 100) vol = 100;
+    if (vol <= 0)
+        vol = 0;
+    else if (vol > 100)
+        vol = 100;
 
     volume = vol;
 
@@ -90,36 +92,55 @@ void AudioManager::setVolume(int vol)
     }
     else
     {
-        audioDSP.setVolume(vol/100.0f);
+        audioDSP.setVolume(vol / 100.0f);
+    }
+}
+
+float AudioManager::getLevel()
+{
+    float averageVolume = 0;
+    for (int i = 0; i < 7; i++)
+    {
+        if (audioDSP.fft_data[i] >= -10.0f)
+            audioDSP.fft_data[i] = -10.0f;
+        if (audioDSP.fft_data[i] <= -30.0f)
+            audioDSP.fft_data[i] = -30.0f;
+
+        averageVolume += audioDSP.fft_data[i];
     }
     
-    
+    averageVolume = audioDSP.fft_data[0];
+    // averageVolume /= 7.0f;
+    averageVolume = ((averageVolume -30.0f) / 20.0f) * 2;
+    Serial.println(averageVolume);
+    if (fabs(averageVolume) == INFINITY)
+    {
+        // Serial.println("dddd");
+        return 0;
+    }
+    // ;
+    return averageVolume;
 }
 
 void AudioManager::mute()
 {
     switch (getSource())
     {
-        case AudioSource::BT:
-            break;
-
+    case AudioSource::BT:
+        break;
     }
 }
 void AudioManager::play()
 {
-
 }
 void AudioManager::pause()
 {
-    
 }
 void AudioManager::skip()
 {
-
 }
 void AudioManager::last()
 {
-
 }
 
 void AudioManager::setFpgaEqEnable(bool bypass)

@@ -3,7 +3,7 @@
  * @Mail         : j.k96013@gmail.com
  * @Department   : ECIE Lab, NTUT
  * @Date         : 2024-06-15 17:52:41
- * @LastEditTime : 2024-07-01 12:43:03
+ * @LastEditTime : 2024-07-01 22:40:24
  * @Description  :
  */
 
@@ -35,7 +35,7 @@ void LedController::init()
 
     softTimer.setTimeOutTime(100);
     softTimer.reset();
-    softTimer
+    
     
 }
 
@@ -108,5 +108,7 @@ void LedController::showRing(float percent)
 
 void LedController::refresh()
 {
-    showRing(audioManager.getVolume() / 100.0);
+    // showRing(audioManager.getVolume() / 100.0);
+    // showRing(audioManager.getVolume() / 100.0);
+    showRing(audioManager.getLevel());
 }

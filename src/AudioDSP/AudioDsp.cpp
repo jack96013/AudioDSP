@@ -14,15 +14,24 @@ void AudioDSP::init()
     
     Serial.println(F("Pinging i2c lines...\n0 -> deveice is present\n2 -> device is not present"));
     Serial.print(F("DSP response: "));
-    Serial.println(dsp.ping());
+    if (dsp.ping() == 0)
+    {
+        Serial.println(dsp.ping());
+        timer.setTimeOutTime(100);
+        timer.reset();
+        Serial.print(F("\nLoading DSP program... "));
+        loadProgram(dsp);
+        Serial.println("Done!\n");
 
-    Serial.print(F("\nLoading DSP program... "));
-    loadProgram(dsp);
-    Serial.println("Done!\n");
+    }
+    else
+    {
+        Serial.print("Failed - Error: ");
+        Serial.println(dsp.ping());
+    }
+    
 
-    timer.setTimeOutTime(100);
-    timer.reset();
-
+    
 
 }
 

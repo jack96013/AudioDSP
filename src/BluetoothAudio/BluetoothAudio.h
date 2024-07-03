@@ -27,6 +27,15 @@ public:
     void loop();
 
     BluetoothAudioPlayState getPlayState();
+    
+    String getTrackTitle();
+    String getTrackArtist();
+    String getTrackAblum();
+
+    int getTrackTotalTime();
+    int getTrackElapsedTime();
+    float getTrackProgress();
+
     void setPlayState(BluetoothAudioPlayState state);
 
 

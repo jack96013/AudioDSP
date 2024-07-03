@@ -43,6 +43,8 @@ void ControlHandler::readEncoder()
     {
         int volume = audioManager.getVolume();
         audioManager.setVolume(volume + diff);
+        classD.sendTestData();
+        
         if (value < last)
         {
             encoderValue -= diff;
