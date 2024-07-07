@@ -25,7 +25,7 @@ void test_setup()
   Serial.println();
   Serial.println("Running...");
 
-  Wire.begin();
+  // Wire.begin();
   i2c_scanner();
 
 

@@ -3,7 +3,7 @@
  * @Mail         : j.k96013@gmail.com
  * @Department   : ECIE Lab, NTUT
  * @Date         : 2024-06-28 13:40:51
- * @LastEditTime : 2024-07-01 17:13:15
+ * @LastEditTime: 2024-07-07 22:37:27
  * @Description  : 
  */
 /*
@@ -72,7 +72,6 @@ class AudioManager
     private:
 
     int volume = 100;     // 音量
-    int l_volume = 100;   // 左音量
     int r_volume = 100;   // 右音量
     
     bool fpgaEqEnable = false; // FPGA 混音模式

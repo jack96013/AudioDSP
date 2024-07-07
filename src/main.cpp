@@ -1,9 +1,10 @@
+
 /*
  * @Author       : TZU-CHIEH, HSU
  * @Mail         : j.k96013@gmail.com
  * @Department   : ECIE Lab, NTUT
  * @Date         : 2024-06-15 17:17:20
- * @LastEditTime : 2024-07-06 20:19:50
+ * @LastEditTime: 2024-07-07 23:51:49
  * @Description  : 
  */
 
@@ -31,8 +32,7 @@ AudioDSP audioDSP; // audio
 void setup()
 {
   Serial.begin(115200);
-
-  
+  Wire.begin();
 
   testTimer.setTimeOutTime(10);
   testTimer.reset();
@@ -49,7 +49,7 @@ void setup()
   
   test_setup();
 
-  audioDSP.init();
+  // audioDSP.init();
 
   
 }
@@ -62,5 +62,5 @@ void loop()
   wifiManager.check();
   btAudio.loop();
   ledController.loop();
-  audioDSP.loop();
+  // audioDSP.loop();
 }

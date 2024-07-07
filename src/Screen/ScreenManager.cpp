@@ -130,9 +130,9 @@ void ScreenManager::page_main_menu()
             display.setCursor(90, 14);
             display.print(volume);
 
-            display.setFont(u8g2_font_ncenB14_tr);
-            display.setCursor(40, 14);
-            display.print(classD.receiveBuffer);
+            display.setFont(u8g2_font_ncenB10_tr);
+            display.setCursor(30, 14);
+            display.print(classD.settings.volume);
 
             if (audioManager.getSource() == AudioSource::XLR1)
             {

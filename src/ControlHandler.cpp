@@ -48,7 +48,7 @@ void ControlHandler::readEncoder()
     {
         int volume = audioManager.getVolume();
         audioManager.setVolume(volume + diff);
-        classD.sendTestData();
+        // classD.sendTestData();
         
         if (value < last)
         {

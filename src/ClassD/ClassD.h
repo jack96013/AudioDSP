@@ -3,7 +3,7 @@
  * @Mail         : j.k96013@gmail.com
  * @Department   : ECIE Lab, NTUT
  * @Date         : 2024-06-27 19:20:50
- * @LastEditTime : 2024-07-05 14:19:22
+ * @LastEditTime: 2024-07-07 22:36:44
  * @Description  : FPGA class D control.
  */
 #ifndef __CLASSD_H__
@@ -20,9 +20,9 @@
 
 
 typedef struct  {
-    int16_t l_volume;
-    int16_t r_volume;
-    int16_t sub_volume;
+    uint16_t volume;
+    uint16_t r_volume;
+    uint16_t sub_volume;
 } ClassDSettings;
 
 class ClassD
@@ -45,9 +45,11 @@ class ClassD
 
     int16_t receiveBuffer;
     
+    ClassDSettings settings;
+    
     private:
     SoftTimer timer;
-    ClassDSettings settings;
+    
     String deviceName;
     int8_t address;
     

@@ -2,7 +2,7 @@
  * @Author: jack96013 j.k96013@gmail.com
  * @Date: 2024-06-27 19:20:56
  * @LastEditors: jack96013 j.k96013@gmail.com
- * @LastEditTime: 2024-06-27 20:25:59
+ * @LastEditTime: 2024-07-08 02:12:50
  * @FilePath: \EspAudioDsp\src\ClassD\ClassD.cpp
  * @Description: Class D library
  */
@@ -12,19 +12,19 @@
 
 ClassD::ClassD()
 {
-    this->address = BOARD_CLASSD_I2C_ADDRESS;
-    timer.setTimeOutTime(100);
-    timer.reset();
     
-    Wire.begin();
-    // Wire.setClock(10000);
     
 }
 
 
 void ClassD::init()
 {
+    this->address = BOARD_CLASSD_I2C_ADDRESS;
+    timer.setTimeOutTime(1000);
+    timer.reset();
     
+    // Wire.begin();
+    // Wire.setClock(10000);
 }
 
 void ClassD::loop()
@@ -45,8 +45,8 @@ void ClassD::setFpgaEqEnable(bool enable)
 
 void ClassD::setMainVolume(float percentage)
 {
-    int16_t volume =  percentage * 10000;
-    settings.l_volume =  volume;
+    uint16_t volume =  percentage * (uint16_t)10000;
+    settings.volume =  volume;
 
     sendData(CLASSD_SETTINGS_MAIN_VOLUME_ADDRESS, volume);
     
@@ -54,7 +54,7 @@ void ClassD::setMainVolume(float percentage)
 
 void ClassD::setSubwooferVolume(float percentage)
 {
-    int16_t volume =  percentage * 10000;
+    uint16_t volume =  percentage * (uint16_t)10000;
     settings.sub_volume =  volume;
 
     sendData(CLASSD_SETTINGS_SUB_VOLUME_ADDRESS, volume);
@@ -82,21 +82,19 @@ void ClassD::sendData(uint8_t data_address, uint16_t data)
 
 void ClassD::receiveData()
 {
-    return;
+    Serial.print("Request Data...");
+    // return;
     Wire.beginTransmission(this->address);
-    Wire.write(CLASSD_SETTINGS_TEST_ADDRESS);
-    Wire.endTransmission(); 
-    
-    Wire.requestFrom(this->address, 8);
-    
-    while (Wire.available())
-    {
-        receiveBuffer = Wire.read();  // 讀取接收到的字節
-        Serial.print("Received: ");
-        Serial.println(receiveBuffer);  // 將接收到的數據打印到串口，或進行其他處理 
-        
+    Wire.write(CLASSD_SETTINGS_MAIN_VOLUME_ADDRESS);
+    Wire.endTransmission(0); 
+    uint32_t start_millis = millis();
+    Wire.requestFrom(this->address, 2);
+    Serial.println(millis() - start_millis);
+
+    if (Wire.available() == 2) {  // 確保接收到兩個字節
+        receiveBuffer = Wire.read();  // 讀取高位字節
+        receiveBuffer = (receiveBuffer << 8) | Wire.read();  // 讀取低位字節並合併到高位字節中
+        Serial.print("Volume: ");
+        Serial.println(receiveBuffer);  // 將接收到的數據以十六進制格式打印到串口
     }
-    
-    Wire.endTransmission();
-    
 }
