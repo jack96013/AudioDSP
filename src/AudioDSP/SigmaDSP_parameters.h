@@ -6,7 +6,7 @@
 /****************************************************************************
 | File name: SigmaDSP_parameters.h                                          |
 | Generation tool: Powershell                                               |
-| Date and time: 07.07.2024 22.10.26                                        |
+| Date and time: 07.07.2024 22.15.08                                        |
 |                                                                           |
 | ADAU1701 parameter and program file header                                |
 | SigmaDSP library and its content is developed and maintained by MCUdude.  |
