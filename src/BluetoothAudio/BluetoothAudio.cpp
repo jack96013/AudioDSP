@@ -3,7 +3,7 @@
  * @Mail         : j.k96013@gmail.com
  * @Department   : ECIE Lab, NTUT
  * @Date         : 2024-06-27 16:07:52
- * @LastEditTime : 2024-07-01 14:16:44
+ * @LastEditTime : 2024-07-07 13:06:51
  * @Description  : Bluetooth auido
  */
 
@@ -164,14 +164,14 @@ void BluetoothAudio::parseCommand(String &response)
 		trackElapsedTime = data.substring(firstComma + 1, secondComma).toInt();;
 		trackTotalTime = data.substring(secondComma + 1).toInt();
 
-		Serial.println("===== TRACKSTAT =====");
-		Serial.print("playState = ");
-		Serial.println((int)playState);
-		Serial.print("trackElapsedTime = ");
-		Serial.println(trackElapsedTime);
-		Serial.print("trackTotalTime = ");
-		Serial.println(trackTotalTime);
-		Serial.println("=================");
+		// Serial.println("===== TRACKSTAT =====");
+		// Serial.print("playState = ");
+		// Serial.println((int)playState);
+		// Serial.print("trackElapsedTime = ");
+		// Serial.println(trackElapsedTime);
+		// Serial.print("trackTotalTime = ");
+		// Serial.println(trackTotalTime);
+		// Serial.println("=================");
 		
     }
 
@@ -184,10 +184,10 @@ void BluetoothAudio::parseCommand(String &response)
 
 		int firstSign = data.indexOf((char)0xFF);
 		int secondSign = data.indexOf((char)0xFF, firstSign + 1);
-		Serial.print("First Sign = ");
-		Serial.println(firstSign);
-		Serial.print("Sec Sign = ");
-		Serial.println(secondSign);
+		// Serial.print("First Sign = ");
+		// Serial.println(firstSign);
+		// Serial.print("Sec Sign = ");
+		// Serial.println(secondSign);
 		
 		if (firstSign == -1)
 			return;
@@ -199,22 +199,22 @@ void BluetoothAudio::parseCommand(String &response)
       	trackTitle = data.substring(0, firstSign);
 		trackArtist = data.substring(firstSign + 1, secondSign);
 		trackAblum = data.substring(secondSign + 1);
-		Serial.println("===== TITLE =====");
-		Serial.print("trackTitle = ");
-		Serial.println(trackTitle);
-		Serial.print("trackArtist = ");
-		Serial.println(trackArtist);
-		Serial.print("trackAblum = ");
-		Serial.println(trackAblum);
-		Serial.println("=================");
+		// Serial.println("===== TITLE =====");
+		// Serial.print("trackTitle = ");
+		// Serial.println(trackTitle);
+		// Serial.print("trackArtist = ");
+		// Serial.println(trackArtist);
+		// Serial.print("trackAblum = ");
+		// Serial.println(trackAblum);
+		// Serial.println("=================");
 	}
 }
 
 void BluetoothAudio::onReceive(void *arg, String &payload)
 {
 	BluetoothAudio *_this = (BluetoothAudio *)arg;
-	Serial.print("RECV >> ");
-	Serial.println(payload);
+	// Serial.print("RECV >> ");
+	// Serial.println(payload);
 	_this->parseCommand(payload);
 
 }

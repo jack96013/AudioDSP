@@ -1,0 +1,1 @@
+document.getElementById("toggleBtn").addEventListener("click",function(){document.getElementById("sidebar").classList.toggle("collapsed")}),document.querySelectorAll(".slider").forEach(e=>{e.addEventListener("input",function(){console.log(this.id+": "+this.value)})});

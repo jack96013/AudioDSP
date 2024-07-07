@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>響應式等化器</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <button class="toggle-btn" id="toggleBtn">☰</button>
+        <h2 class="sidebar-title">Menu</h2>
+        <ul>
+            <li><a href="#"><i class="fas fa-sliders-h"></i><span class="sidebar-text">等化器</span></a></li>
+            <li><a href="#"><i class="fas fa-cog"></i><span class="sidebar-text">設定</span></a></li>
+            <li><a href="#"><i class="fas fa-info-circle"></i><span class="sidebar-text">關於</span></a></li>
+        </ul>
+    </div>
+    <div class="main-content" id="mainContent">
+        <h1>Equalizer</h1>
+        <div class="card">
+            <h1 class="card-title">音量調整</h1>
+
+            <div class="volume-control">
+                <label for="volume">Main Volume:</label>
+                <input type="range" min="0" max="100" value="50" class="volume-slider" id="volume">
+            </div>
+            <div class="volume-control">
+                <label for="volume">Subwoofer Volume:</label>
+                <input type="range" min="0" max="100" value="50" class="volume-slider" id="volume">
+            </div>
+        </div>
+        <div class="card">
+            <h1 class="card-title">EQ</h1>
+            <div class="equalizer">
+                <div class="slider-container">
+                    <input type="range" min="0" max="100" value="50" class="slider" id="band1">
+                    <label for="band1">60 Hz</label>
+                </div>
+                <div class="slider-container">
+                    <input type="range" min="0" max="100" value="50" class="slider" id="band2">
+                    <label for="band2">170 Hz</label>
+                </div>
+                <div class="slider-container">
+                    <input type="range" min="0" max="100" value="50" class="slider" id="band3">
+                    <label for="band3">310 Hz</label>
+                </div>
+                <div class="slider-container">
+                    <input type="range" min="0" max="100" value="50" class="slider" id="band4">
+                    <label for="band4">600 Hz</label>
+                </div>
+                <div class="slider-container">
+                    <input type="range" min="0" max="100" value="50" class="slider" id="band5">
+                    <label for="band5">1 kHz</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>

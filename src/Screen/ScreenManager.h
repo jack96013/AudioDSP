@@ -31,6 +31,12 @@ public:
     void showStartUpScreen();
     void switchLayout(ScreenManagerLayout layout);
 
+    void page_idle();
+    void page_startup();
+    void page_loading();
+    void page_main_menu();
+    void page_settings();
+
 private:
 #ifdef SCREEN_TYPE_SH1106
     U8G2_SH1106_128X64_NONAME_F_4W_HW_SPI  display = U8G2_SH1106_128X64_NONAME_F_4W_HW_SPI(U8G2_R0, /* cs=*/ BOARD_OLED_CS_PIN, /* dc=*/ BOARD_OLED_DC_PIN, /* reset=*/ BOARD_OLED_RES_PIN);

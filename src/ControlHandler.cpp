@@ -35,7 +35,12 @@ void ControlHandler::readEncoder()
 
     static int16_t last, value;
     value += encoder.getValue();
-    int16_t diff = -1*(last - value);
+    int16_t diff = (value - last);
+
+    if (diff > 1 || diff < -1)
+    {
+        diff = diff * 2.0f;
+    }
 
     
 
@@ -150,7 +155,7 @@ void ControlHandler::readButton()
             }
             case ClickEncoder::Clicked:
             {
-                
+                // digitalWrite(BOARD_ASRC_MODE0_PIN, !digitalRead(BOARD_ASRC_MODE0_PIN));
                 break;   
             }
             case ClickEncoder::DoubleClicked:

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IFEC-2024 CLASS D</title>
+    <!-- 引入 Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 引入 Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- 自定義的 CSS 樣式表 -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* 自定義的其他 CSS 樣式 */
+    </style>
+</head>
+
+<body>
+    <div class="d-flex w-100 flex-column h-100">
+        <div class="up-fixed">
+            <div class="col-12 header fixed-header">
+                <button class="toggle-btn" id="toggleBtn">☰</button>
+                <div class="title-box">
+                    <img src="12.svg" class="title-logo">
+                    <h4 class="ml-2 mb-0">IFEC-2024 CLASS D</h2>
+                </div>
+            </div>
+        </div>
+        <div class="down-fill flex-grow-1">
+
+            <div class="d-flex w-100 h-100">
+                <div class="left-fixed">
+                    <div class="sidebar left-fixed h-100" id="sidebar">
+                        <h2 class="sidebar-title">Menu</h2>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-sliders-h"></i><span
+                                        class="sidebar-text">Equalizer</span></a></li>
+                            <li><a href="#"><i class="fas fa-cog"></i><span class="sidebar-text">Settings</span></a>
+                            </li>
+                            <li><a href="#"><i class="fas fa-info-circle"></i><span
+                                        class="sidebar-text">About</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="right-fill w-100" style="overflow-y: scroll;">
+                    <div class="main-content w-100" id="mainContent">
+                        
+
+                        <!-- 主音量卡片 -->
+                        <div class="card">
+                            <h5 class="card-header">Main</h5>
+                            <div class="card-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="mainVolume">Input Source:</label>
+                                            <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons">
+                                                <label
+                                                    class="btn btn-primary active d-flex flex-row align-items-center">
+                                                    <i class="fab fa-bluetooth-b fa-2x mr-3"></i>
+                                                    <input type="radio" name="options" id="option1" autocomplete="off" checked> XLR
+                                                </label>
+                                                <label class="btn btn-primary d-flex flex-row align-items-center">
+                                                    <i class="fab fa-bluetooth-b fa-2x mr-3"></i>
+                                                    <input type="radio" name="options" id="option2" autocomplete="off">
+                                                    BT
+                                                </label>
+                                                <label class="btn btn-primary d-flex flex-row align-items-center">
+                                                    <i class="fab fa-usb fa-2x mr-3"></i>
+                                                    <input type="radio" name="options" id="option3" autocomplete="off">
+                                                    USB
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="mainVolume">Main Volume:</label>
+                                    <input type="range" class="custom-range" id="mainVolume">
+                                </div>
+                                <div class="form-group">
+                                    <label for="subwooferVolume">Subwoofer Volume:</label>
+                                    <input type="range" class="custom-range" id="subwooferVolume">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 等化器卡片 -->
+                        <div class="card">
+                            <h5 class="card-header">EQ
+                                <div class="custom-control custom-switch float-right">
+                                    <input type="checkbox" class="custom-control-input" id="eqSwitch">
+                                    <label class="custom-control-label" for="eqSwitch"></label>
+                                </div>
+                            </h5>
+                            <div class="card-body equalizer">
+                                <div class="range-slider">
+                                    <input type="range" class="input-range" id="band1">
+                                    <label for="band1">31</label>
+                                </div>
+                                <div class="range-slider">
+                                    <input type="range" class="input-range" id="band2">
+                                    <label for="band2">62</label>
+                                </div>
+                                <div class="range-slider">
+                                    <input type="range" class="input-range" id="band3">
+                                    <label for="band3">125</label>
+                                </div>
+                                <div class="range-slider">
+                                    <input type="range" class="input-range" id="band4">
+                                    <label for="band4">250</label>
+                                </div>
+                                <div class="range-slider">
+                                    <input type="range" class="input-range" id="band5">
+                                    <label for="band5">500</label>
+                                </div>
+                                <div class="range-slider">
+                                    <input type="range" class="input-range" id="band5">
+                                    <label for="band5">1k</label>
+                                </div>
+                                <div class="range-slider">
+                                    <input type="range" class="input-range" id="band5">
+                                    <label for="band5">2k</label>
+                                </div>
+                                <div class="range-slider">
+                                    <input type="range" class="input-range" id="band5">
+                                    <label for="band5">4k</label>
+                                </div>
+                                <div class="range-slider">
+                                    <input type="range" class="input-range" id="band5">
+                                    <label for="band5">8k</label>
+                                </div>
+                                <div class="range-slider">
+                                    <input type="range" class="input-range" id="band5">
+                                    <label for="band5">16k</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 等化器卡片 -->
+                        <div class="card">
+                            <h5 class="card-header">EQ
+                                <div class="custom-control custom-switch float-right">
+                                    <input type="checkbox" class="custom-control-input" id="eqSwitch">
+                                    <label class="custom-control-label" for="eqSwitch"></label>
+                                </div>
+                            </h5>
+                            <div class="card-body equalizer">
+                                <div class="range-slider">
+                                    <input type="range" class="input-range" id="band1">
+                                    <label for="band1">31</label>
+                                </div>
+                                <div class="range-slider">
+                                    <input type="range" class="input-range" id="band2">
+                                    <label for="band2">62</label>
+                                </div>
+                                <div class="range-slider">
+                                    <input type="range" class="input-range" id="band3">
+                                    <label for="band3">125</label>
+                                </div>
+                                <div class="range-slider">
+                                    <input type="range" class="input-range" id="band4">
+                                    <label for="band4">250</label>
+                                </div>
+                                <div class="range-slider">
+                                    <input type="range" class="input-range" id="band5">
+                                    <label for="band5">500</label>
+                                </div>
+                                <div class="range-slider">
+                                    <input type="range" class="input-range" id="band5">
+                                    <label for="band5">1k</label>
+                                </div>
+                                <div class="range-slider">
+                                    <input type="range" class="input-range" id="band5">
+                                    <label for="band5">2k</label>
+                                </div>
+                                <div class="range-slider">
+                                    <input type="range" class="input-range" id="band5">
+                                    <label for="band5">4k</label>
+                                </div>
+                                <div class="range-slider">
+                                    <input type="range" class="input-range" id="band5">
+                                    <label for="band5">8k</label>
+                                </div>
+                                <div class="range-slider">
+                                    <input type="range" class="input-range" id="band5">
+                                    <label for="band5">16k</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- 引入 Bootstrap 和自定義的 JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="scripts.js"></script>
+</body>
+
+</html>

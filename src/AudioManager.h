@@ -44,7 +44,7 @@ class AudioManager
     int getVolume();
     void setVolume(int vol);
 
-    float getLevel();
+    int getLevel();
 
     int getVolumeL();
     void setVolumeL(int vol);

@@ -3,7 +3,7 @@
  * @Mail         : j.k96013@gmail.com
  * @Department   : ECIE Lab, NTUT
  * @Date         : 2024-06-15 17:17:20
- * @LastEditTime : 2024-07-01 21:44:15
+ * @LastEditTime : 2024-07-06 20:19:50
  * @Description  : 
  */
 
@@ -42,6 +42,8 @@ void setup()
   screenManager.init();
   ledController.init();
   controlHandler.init();
+  
+  
   audioManager.init();
   wifiManager.begin();
   

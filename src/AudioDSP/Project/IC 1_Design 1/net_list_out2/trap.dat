@@ -1,8 +1,0 @@
-Instance  4 Signal ReadBack1_ReadBackAlg2 trap value 29 register MAC_out
-Instance  18 Signal SevenBandLevelDet1rta0_out trap value 235 register mult_out
-Instance  18 Signal SevenBandLevelDet1rta1_out trap value 277 register mult_out
-Instance  18 Signal SevenBandLevelDet1rta2_out trap value 319 register mult_out
-Instance  18 Signal SevenBandLevelDet1rta3_out trap value 361 register mult_out
-Instance  18 Signal SevenBandLevelDet1rta4_out trap value 403 register mult_out
-Instance  18 Signal SevenBandLevelDet1rta5_out trap value 445 register mult_out
-Instance  18 Signal SevenBandLevelDet1rta6_out trap value 487 register mult_out

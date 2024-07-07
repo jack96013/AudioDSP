@@ -1,11 +1,13 @@
 /*
- * @Author: jack96013 j.k96013@gmail.com
- * @Date: 2024-06-15 17:30:25
- * @LastEditors: jack96013 j.k96013@gmail.com
- * @LastEditTime: 2024-06-27 20:08:41
- * @FilePath: \EspAudioDsp\src\board.h
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @Author       : TZU-CHIEH, HSU
+ * @Mail         : j.k96013@gmail.com
+ * @Department   : ECIE Lab, NTUT
+ * @Date         : 2024-06-15 17:30:25
+ * @LastEditTime : 2024-07-05 15:21:13
+ * @Description  : 
  */
+
+
 #ifndef __BOARD_H__
 #define  __BOARD_H__
 
@@ -23,15 +25,15 @@
 #define BOARD_OLED_SCK_PIN      18
 #define BOARD_OLED_MOSI_PIN     23
 
-#define BOARD_ASRC_MODE0_PIN 26
+#define BOARD_ASRC_MODE2_PIN -1
 #define BOARD_ASRC_MODE1_PIN 25
-#define BOARD_ASRC_MODE2_PIN 27
+#define BOARD_ASRC_MODE0_PIN 27
 
 #define BOARD_RGB_LED_1_PIN 13      // RING
 #define BOARD_RGB_LED_2_PIN 2       // MAIN
 
 #define BOARD_MUX1_SEL_PIN   12
-#define BOARD_MUX2_SEL_PIN   12
+#define BOARD_MUX2_SEL_PIN   26
 
 #define BOARD_RESET_PIN     4
 

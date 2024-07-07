@@ -3,7 +3,7 @@
  * @Mail         : j.k96013@gmail.com
  * @Department   : ECIE Lab, NTUT
  * @Date         : 2024-06-27 19:20:50
- * @LastEditTime : 2024-07-02 15:55:47
+ * @LastEditTime : 2024-07-05 14:19:22
  * @Description  : FPGA class D control.
  */
 #ifndef __CLASSD_H__
@@ -34,8 +34,8 @@ class ClassD
     
     void setFpgaEqEnable(bool enable);    // FPGA 混音模式 
     //
-    void setLeftVolume(float percentage);
-    void setRightVolume(float percentage);
+    void setMainVolume(float percentage);
+    // void setRightVolume(float percentage);
     void setSubwooferVolume(float percentage);
 
     void sendTestData();
@@ -43,7 +43,7 @@ class ClassD
 
     void receiveData();
 
-    uint16_t receiveBuffer;
+    int16_t receiveBuffer;
     
     private:
     SoftTimer timer;

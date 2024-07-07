@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- *
+ * This software is distributed in the hope that it will be useful,
+ * but is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * This software may only be used to program products purchased from
+ * Analog Devices for incorporation by you into audio products that
+ * are intended for resale to audio product end users. This software
+ * may not be distributed whole or in any part to third parties.
+ *
+ * Copyright © 2024 Analog Devices, Inc. All rights reserved.
+ */
+-->
+<!--NetList XML file-->
+<NetList>
+    <IC name=" IC 1 " type="DSPSigma100">
+        <Schematic>
+            <Algorithm name="ICSigma100In1" friendlyname="170x\140x input " cell="Input1 " location="{X=195, Y=391} " Growth="10 " GrowthB="0 " FS="96000">
+                <Link pin="O_C53_A0_P1_out" dir="out" link="Link3" />
+                <Link pin="O_C53_A0_P2_out" dir="out" link="Link2" />
+                <Link pin="O_C53_A0_P3_out" dir="out" link="Link0" />
+                <Link pin="O_C53_A0_P4_out" dir="out" link="Link4" />
+            </Algorithm>
+            <Algorithm name="GPIAlg1" friendlyname="General Purpose Input " cell="GPI1 " location="{X=203, Y=716} " Growth="0 " GrowthB="0 " FS="96000">
+                <Link pin="O_C154_A0_P1_out" dir="out" link="Link1" />
+            </Algorithm>
+            <Algorithm name="DCInpAlg1" friendlyname="dc Input " cell="DC3 " location="{X=347, Y=145.5203} " Growth="0 " GrowthB="0 " FS="96000">
+                <Link pin="O_C197_A0_P1_out" dir="out" link="Link10" />
+            </Algorithm>
+            <Algorithm name="sin_lookupAlg19401" friendlyname="Tone Synthesis (lookup/sine) " cell="Tone1 " location="{X=174, Y=587} " Growth="0 " GrowthB="0 " FS="96000">
+                <Link pin="O_C21_A0_P1_out" dir="out" link="Link33" />
+            </Algorithm>
+            <Algorithm name="MuteSWSlewAlg3" friendlyname="SW (RCtype Slew) " cell="Mute1 " location="{X=347, Y=458.1022} " Growth="1 " GrowthB="0">
+                <Link pin="I_C114_A0_P1_in" dir="in" link="Link0" />
+                <Link pin="O_C114_A0_P2_out" dir="out" link="Link8" />
+            </Algorithm>
+            <Algorithm name="ReadBackAlg2" friendlyname="Data Capture Register Readback " cell="ReadBack1 " location="{X=351, Y=691} " Growth="0 " GrowthB="0">
+                <Link pin="I_C149_A0_P1_in" dir="in" link="Link1" />
+            </Algorithm>
+            <Algorithm name="MuteSWSlewAlg2" friendlyname="SW (RCtype Slew) " cell="Mute2_2 " location="{X=349, Y=375} " Growth="1 " GrowthB="0">
+                <Link pin="I_C27_A0_P1_in" dir="in" link="Link2" />
+                <Link pin="O_C27_A0_P2_out" dir="out" link="Link7" />
+            </Algorithm>
+            <Algorithm name="MuteSWSlewAlg1" friendlyname="SW (RCtype Slew) " cell="Mute2 " location="{X=349, Y=322.8889} " Growth="1 " GrowthB="0">
+                <Link pin="I_C15_A0_P1_in" dir="in" link="Link3" />
+                <Link pin="O_C15_A0_P2_out" dir="out" link="Link6" />
+            </Algorithm>
+            <Algorithm name="MuteSWSlewAlg4" friendlyname="SW (RCtype Slew) " cell="Mute3 " location="{X=347, Y=505.3577} " Growth="1 " GrowthB="0">
+                <Link pin="I_C117_A0_P1_in" dir="in" link="Link4" />
+                <Link pin="O_C117_A0_P2_out" dir="out" link="Link9" />
+            </Algorithm>
+            <Algorithm name="MuteSWSlewAlg8" friendlyname="SW (RCtype Slew) " cell="Mute1_2 " location="{X=347, Y=571.1022} " Growth="1 " GrowthB="0">
+                <Link pin="I_C14_A0_P1_in" dir="in" link="Link33" />
+                <Link pin="O_C14_A0_P2_out" dir="out" link="Link20" />
+            </Algorithm>
+            <Algorithm name="MuteSWSlewAlg7" friendlyname="SW (RCtype Slew) " cell="Mute3_2 " location="{X=347, Y=618.3577} " Growth="1 " GrowthB="0">
+                <Link pin="I_C6_A0_P1_in" dir="in" link="Link33" />
+                <Link pin="O_C6_A0_P2_out" dir="out" link="Link21" />
+            </Algorithm>
+            <Algorithm name="DCinputmux_stereo_Alg1" friendlyname="Stereo " cell="MX1 " location="{X=492, Y=392.7398} " Growth="3 " GrowthB="0">
+                <Link pin="I_C181_A0_P3_in" dir="in" link="Link10" />
+                <Link pin="I_C181_A0_P4_in" dir="in" link="Link6" />
+                <Link pin="I_C181_A0_P5_in" dir="in" link="Link7" />
+                <Link pin="I_C181_A0_P6_in" dir="in" link="Link8" />
+                <Link pin="I_C181_A0_P7_in" dir="in" link="Link9" />
+                <Link pin="I_C181_A0_P8_in" dir="in" link="Link20" />
+                <Link pin="I_C181_A0_P9_in" dir="in" link="Link21" />
+                <Link pin="O_C181_A0_P1_out" dir="out" link="Link27" />
+                <Link pin="O_C181_A0_P2_out" dir="out" link="Link26" />
+            </Algorithm>
+            <Algorithm name="SWGain1940DBAlg1" friendlyname="Gain (RC Slew) " cell="SW vol 1 " location="{X=619, Y=315.4843} " Growth="2 " GrowthB="0">
+                <Link pin="I_C20_A0_P1_in" dir="in" link="Link27" />
+                <Link pin="I_C20_A0_P3_in" dir="in" link="Link26" />
+                <Link pin="O_C20_A0_P2_out" dir="out" link="Link25" />
+                <Link pin="O_C20_A0_P4_out" dir="out" link="Link24" />
+            </Algorithm>
+            <Algorithm name="SingleCtrlMixer19401" friendlyname="Signal MixerC " cell="Mg1 " location="{X=799, Y=489.2162} " Growth="2 " GrowthB="0">
+                <Link pin="I_C105_A0_P2_in" dir="in" link="Link25" />
+                <Link pin="I_C105_A0_P3_in" dir="in" link="Link24" />
+                <Link pin="O_C105_A0_P1_out" dir="out" link="Link28" />
+            </Algorithm>
+            <Algorithm name="PEQ1Chan2" friendlyname="PEQ1Chan - Double Precision " cell="Param EQ1_2 " location="{X=1194, Y=663} " Growth="2 " GrowthB="0">
+                <Link pin="I_C82_A0_P1_in" dir="in" link="Link25" />
+                <Link pin="I_C82_A0_P3_in" dir="in" link="Link24" />
+                <Link pin="O_C82_A0_P2_out" dir="out" link="Link22" />
+                <Link pin="O_C82_A0_P4_out" dir="out" link="Link23" />
+            </Algorithm>
+            <Algorithm name="PEQ1Chan1" friendlyname="PEQ1Chan - Double Precision " cell="Param EQ1 " location="{X=1197, Y=846} " Growth="1 " GrowthB="0">
+                <Link pin="I_C574_A0_P1_in" dir="in" link="Link28" />
+                <Link pin="O_C574_A0_P2_out" dir="out" link="Link34" />
+            </Algorithm>
+            <Algorithm name="stereomux1940ns41" friendlyname="4 Channel " cell="Nx4-1 " location="{X=1548, Y=498.6186} " Growth="2 " GrowthB="0">
+                <Link pin="I_C288_A0_P5_in" dir="in" link="Link25" />
+                <Link pin="I_C288_A0_P6_in" dir="in" link="Link24" />
+                <Link pin="I_C288_A0_P7_in" dir="in" link="Link28" />
+                <Link pin="I_C288_A0_P8_in" dir="in" link="Link28" />
+                <Link pin="I_C288_A0_P9_in" dir="in" link="Link22" />
+                <Link pin="I_C288_A0_P10_in" dir="in" link="Link23" />
+                <Link pin="I_C288_A0_P11_in" dir="in" link="Link34" />
+                <Link pin="I_C288_A0_P12_in" dir="in" link="Link34" />
+                <Link pin="O_C288_A0_P1_out" dir="out" link="Link29" />
+                <Link pin="O_C288_A0_P2_out" dir="out" link="Link30" />
+                <Link pin="O_C288_A0_P3_out" dir="out" link="Link31" />
+                <Link pin="O_C288_A0_P4_out" dir="out" link="Link32" />
+            </Algorithm>
+            <Algorithm name="MuteSWSlewAlg5" friendlyname="SW (RCtype Slew) " cell="Mute2_3 " location="{X=1779, Y=371.4415} " Growth="4 " GrowthB="0">
+                <Link pin="I_C251_A0_P1_in" dir="in" link="Link29" />
+                <Link pin="I_C251_A0_P3_in" dir="in" link="Link30" />
+                <Link pin="I_C251_A0_P5_in" dir="in" link="Link31" />
+                <Link pin="I_C251_A0_P7_in" dir="in" link="Link32" />
+                <Link pin="O_C251_A0_P2_out" dir="out" link="Link11" />
+                <Link pin="O_C251_A0_P4_out" dir="out" link="Link12" />
+                <Link pin="O_C251_A0_P6_out" dir="out" link="Link13" />
+                <Link pin="O_C251_A0_P8_out" dir="out" link="Link14" />
+            </Algorithm>
+            <Algorithm name="MuteSWSlewAlg6" friendlyname="SW (RCtype Slew) " cell="Mute2_4 " location="{X=1771, Y=648.973} " Growth="4 " GrowthB="0">
+                <Link pin="I_C271_A0_P1_in" dir="in" link="Link29" />
+                <Link pin="I_C271_A0_P3_in" dir="in" link="Link30" />
+                <Link pin="I_C271_A0_P5_in" dir="in" link="Link31" />
+                <Link pin="I_C271_A0_P7_in" dir="in" link="Link32" />
+                <Link pin="O_C271_A0_P2_out" dir="out" link="Link15" />
+                <Link pin="O_C271_A0_P4_out" dir="out" link="Link16" />
+                <Link pin="O_C271_A0_P6_out" dir="out" link="Link17" />
+                <Link pin="O_C271_A0_P8_out" dir="out" link="Link18" />
+            </Algorithm>
+            <Algorithm name="SingleCtrlMixer19402" friendlyname="Signal MixerC " cell="Mg1_2 " location="{X=1683, Y=882.2162} " Growth="2 " GrowthB="0">
+                <Link pin="I_C529_A0_P2_in" dir="in" link="Link29" />
+                <Link pin="I_C529_A0_P3_in" dir="in" link="Link30" />
+                <Link pin="O_C529_A0_P1_out" dir="out" link="Link19" />
+            </Algorithm>
+            <Algorithm name="ICSigma100Out1" friendlyname="170x\140x output " cell="Output1 " location="{X=1854, Y=290.4445} " Growth="0 " GrowthB="0">
+                <Link pin="I_C0_A0_P1_in" dir="in" link="Link11" />
+            </Algorithm>
+            <Algorithm name="ICSigma100Out2" friendlyname="170x\140x output " cell="Output1_2 " location="{X=1854, Y=345.2462} " Growth="0 " GrowthB="0">
+                <Link pin="I_C35_A0_P1_in" dir="in" link="Link12" />
+            </Algorithm>
+            <Algorithm name="ICSigma100Out5" friendlyname="170x\140x output " cell="Output1_3 " location="{X=1848, Y=412.4445} " Growth="0 " GrowthB="0">
+                <Link pin="I_C163_A0_P1_in" dir="in" link="Link13" />
+            </Algorithm>
+            <Algorithm name="ICSigma100Out6" friendlyname="170x\140x output " cell="Output1_4 " location="{X=1848, Y=467.2462} " Growth="0 " GrowthB="0">
+                <Link pin="I_C165_A0_P1_in" dir="in" link="Link14" />
+            </Algorithm>
+            <Algorithm name="ICSigma100Out3" friendlyname="170x\140x output " cell="Output2 " location="{X=1849, Y=554.922} " Growth="0 " GrowthB="0">
+                <Link pin="I_C5_A0_P1_in" dir="in" link="Link15" />
+            </Algorithm>
+            <Algorithm name="ICSigma100Out4" friendlyname="170x\140x output " cell="Output2_2 " location="{X=1848, Y=615.922} " Growth="0 " GrowthB="0">
+                <Link pin="I_C37_A0_P1_in" dir="in" link="Link16" />
+            </Algorithm>
+            <Algorithm name="ICSigma100Out7" friendlyname="170x\140x output " cell="Output2_3 " location="{X=1849, Y=684.922} " Growth="0 " GrowthB="0">
+                <Link pin="I_C175_A0_P1_in" dir="in" link="Link17" />
+            </Algorithm>
+            <Algorithm name="ICSigma100Out8" friendlyname="170x\140x output " cell="Output2_4 " location="{X=1848, Y=745.922} " Growth="0 " GrowthB="0">
+                <Link pin="I_C177_A0_P1_in" dir="in" link="Link18" />
+            </Algorithm>
+            <Algorithm name="Gain1940AlgNS1" friendlyname="Gain (no slew) " cell="Gain1 " location="{X=1764, Y=873.236} " Growth="0 " GrowthB="0">
+                <Link pin="I_C120_A0_P1_in" dir="in" link="Link19" />
+                <Link pin="O_C120_A0_P2_out" dir="out" link="Link5" />
+            </Algorithm>
+            <Algorithm name="SevenBandLevelDet1" friendlyname="Fixed Seven Bands " cell="7 X RTA1 " location="{X=1921, Y=820.236} " Growth="0 " GrowthB="0">
+                <Link pin="I_C101_A0_P1_in" dir="in" link="Link5" />
+            </Algorithm>
+        </Schematic>
+    </IC>
+</NetList>

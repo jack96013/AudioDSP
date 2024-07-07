@@ -17,15 +17,19 @@ void AudioManager::init()
 
     digitalWrite(BOARD_ASRC_MODE0_PIN, LOW);
     digitalWrite(BOARD_ASRC_MODE1_PIN, HIGH);
-    digitalWrite(BOARD_ASRC_MODE2_PIN, LOW);
+    digitalWrite(BOARD_ASRC_MODE2_PIN, HIGH);
+    
 
     setSource(AudioSource::BT);
+
+    setVolume(80);
 
     // TODO: FPGA Data sync
 }
 
 void AudioManager::loop()
 {
+
 }
 
 void AudioManager::setSource(AudioSource source)
@@ -35,23 +39,28 @@ void AudioManager::setSource(AudioSource source)
     {
     case AudioSource::XLR1:
         setFpgaEqEnable(true);
-        digitalWrite(BOARD_MUX1_SEL_PIN, LOW);
-        digitalWrite(BOARD_MUX1_SEL_PIN, LOW);
+        digitalWrite(BOARD_MUX1_SEL_PIN, HIGH);
+        digitalWrite(BOARD_MUX2_SEL_PIN, HIGH);
+        audioDSP.setSource(AudioDspSource::I2S);
         break;
     case AudioSource::XLR2:
         setFpgaEqEnable(false);
         digitalWrite(BOARD_MUX1_SEL_PIN, HIGH);
-        digitalWrite(BOARD_MUX1_SEL_PIN, HIGH);
+        digitalWrite(BOARD_MUX2_SEL_PIN, HIGH);
+        audioDSP.setSource(AudioDspSource::I2S);
+        // Serial.println(digitalRead(BOARD_MUX2_SEL_PIN));
         break;
     case AudioSource::BT:
         setFpgaEqEnable(false);
         digitalWrite(BOARD_MUX1_SEL_PIN, LOW);
-        digitalWrite(BOARD_MUX1_SEL_PIN, LOW);
+        audioDSP.setSource(AudioDspSource::I2S);
         break;
     case AudioSource::USB:
         setFpgaEqEnable(false);
         digitalWrite(BOARD_MUX1_SEL_PIN, HIGH);
-        digitalWrite(BOARD_MUX1_SEL_PIN, HIGH);
+        digitalWrite(BOARD_MUX2_SEL_PIN, LOW);
+        // audioDSP.setSource(AudioDspSource::SINE);
+        audioDSP.setSource(AudioDspSource::I2S);
         break;
     }
 }
@@ -62,7 +71,7 @@ AudioSource AudioManager::getSource()
 
 void AudioManager::switchSource()
 {
-    sourceSelectIndex++;
+    sourceSelectIndex ++;
     if (sourceSelectIndex >= sourceLength)
     {
         sourceSelectIndex = 0;
@@ -77,75 +86,61 @@ int AudioManager::getVolume()
 
 void AudioManager::setVolume(int vol)
 {
-    if (vol <= 0)
-        vol = 0;
-    else if (vol > 100)
-        vol = 100;
+    if (vol <= 0) vol = 0;
+    else if (vol > 100) vol = 100;
 
     volume = vol;
 
     if (isFpgaEqEnable())
     {
-        classD.setLeftVolume(volume / 100.0f);
-        classD.setRightVolume(volume / 100.0f);
-        classD.setSubwooferVolume(volume / 100.0f);
+        classD.setMainVolume(volume / 100.0f);
+        classD.setSubwooferVolume(volume / 100.0f - 0.1f);
     }
     else
     {
-        audioDSP.setVolume(vol / 100.0f);
-    }
-}
-
-float AudioManager::getLevel()
-{
-    float averageVolume = 0;
-    for (int i = 0; i < 7; i++)
-    {
-        if (audioDSP.fft_data[i] >= -10.0f)
-            audioDSP.fft_data[i] = -10.0f;
-        if (audioDSP.fft_data[i] <= -30.0f)
-            audioDSP.fft_data[i] = -30.0f;
-
-        averageVolume += audioDSP.fft_data[i];
+        audioDSP.setVolume(vol/100.0f);
     }
     
-    averageVolume = audioDSP.fft_data[0];
-    // averageVolume /= 7.0f;
-    averageVolume = ((averageVolume -30.0f) / 20.0f) * 2;
-    Serial.println(averageVolume);
-    if (fabs(averageVolume) == INFINITY)
-    {
-        // Serial.println("dddd");
-        return 0;
-    }
-    // ;
-    return averageVolume;
+    
+}
+
+int AudioManager::getLevel()
+{
+    // audioDSP.fft_data();
+    return 0;
 }
 
 void AudioManager::mute()
 {
     switch (getSource())
     {
-    case AudioSource::BT:
-        break;
+        case AudioSource::BT:
+            break;
+
     }
 }
 void AudioManager::play()
 {
+
 }
 void AudioManager::pause()
 {
+    
 }
 void AudioManager::skip()
 {
+
 }
 void AudioManager::last()
 {
+
 }
 
 void AudioManager::setFpgaEqEnable(bool bypass)
 {
     fpgaEqEnable = bypass;
+    classD.setFpgaEqEnable(bypass);
+    
     // audioDSP.setFpgaEqBypass(bypass);
     // classD.setFpgaEqModeEnable
 }

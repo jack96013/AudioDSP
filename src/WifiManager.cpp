@@ -3,7 +3,7 @@
  * @Mail         : j.k96013@gmail.com
  * @Department   : ECIE Lab, NTUT
  * @Date         : 2024-06-27 22:02:38
- * @LastEditTime : 2024-07-02 23:05:08
+ * @LastEditTime : 2024-06-30 17:28:55
  * @Description  :
  */
 /*
@@ -35,23 +35,6 @@ void WifiManager::begin()
     Serial.print(F("Device Name: "));
     Serial.println(deviceName);
     connect();
-
-    if(!SPIFFS.begin(true)){
-        Serial.println("An Error has occurred while mounting SPIFFS");
-        return;
-    }
-
-    Serial.println("Listing SPIFFS files:");
-    File root = SPIFFS.open("/");
-    File file = root.openNextFile();
-    while (file) {
-        Serial.print("FILE: ");
-        Serial.print(file.name());
-        Serial.print("\tSIZE: ");
-        Serial.println(file.size());
-        file = root.openNextFile();
-    }
-        
 }
 
 void WifiManager::check()
@@ -82,19 +65,17 @@ void WifiManager::initialService()
 
 void WifiManager::initialOTA()
 {
-    webServer.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
+    otaWebServer.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
                     { request->send(200, "text/plain", "Hi! This is ElegantOTA AsyncDemo."); });
 
-    webServer.serveStatic("/test/", SPIFFS, "/").setDefaultFile("index.html");
-    
-    ElegantOTA.begin(&webServer); // Start ElegantOTA
+    ElegantOTA.begin(&otaWebServer); // Start ElegantOTA
     ElegantOTA.setAutoReboot(true);
     // ElegantOTA callbacks
     ElegantOTA.onStart(onOTAStart);
     ElegantOTA.onProgress(onOTAProgress);
     ElegantOTA.onEnd(onOTAEnd);
-    
-    webServer.begin();
+
+    otaWebServer.begin();
     Serial.println("HTTP server started");
 }
 
